@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+
+<head>
+    {% if title %}
+    <title>{{ title }} - TimeLight</title>
+    {% else %}
+    <title>Welcome to TimeLight</title>
+    {% endif %}
+</head>
+
+<body>
+    <div>Timelight: <a href="/index">Home</a></div>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+
+</html>

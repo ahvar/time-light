@@ -16,7 +16,14 @@ NOTE:
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import (
+    StringField,
+    PasswordField,
+    BooleanField,
+    SubmitField,
+    DateField,
+    FloatField,
+)
 from wtforms.validators import DataRequired
 
 
@@ -25,3 +32,15 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     remember_me = BooleanField("Remember Me")
     submit = SubmitField("Sign In")
+
+
+class ActivityForm(FlaskForm):
+    name = StringField("Activity Name", validators=[DataRequired()])
+    start = DateField("Start", validators=[DataRequired()])
+    end = DateField("End", validators=[DataRequired()])
+
+
+class ExpenseForm(FlaskForm):
+    date = DateField("Expense Date", validators=[DataRequired()])
+    amount = FloatField("Amount", validators=[DataRequired()])
+    description = StringField("Description", validators=[DataRequired()])

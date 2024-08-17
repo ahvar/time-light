@@ -14,8 +14,9 @@ NOTE:
     The render_template() function invokes the Jinja template engine that comes bundled with the Flask framework.
 """
 
-from flask import render_template
+from flask import render_template, flash, redirect, url_for
 from app import app
+from app.forms import LoginForm, ActivityForm, ExpenseForm
 
 
 @app.route("/")
@@ -30,3 +31,36 @@ def index():
         }
     ]
     return render_template("index.html", title="Home", user=user, schedules=schedules)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """
+    NOTE:
+    ----------
+    GET method
+    ----------
+    When the browser sends the GET request to receive the web page with the form, this method
+    is going to return False, so in that case the function skips the if statement and goes
+    directly to render the template in the last line of the function.
+
+    ------------
+    POST method
+    ------------
+    When the browser sends the POST request as a result of the user pressing the submit button,
+    form.validate_on_submit() is going to gather all the data, run all the validators attached to fields,
+    and if everything is all right it will return True
+    """
+    login_form = LoginForm()
+    activity_form = ActivityForm()
+    expense_form = ExpenseForm()
+    if login_form.validate_on_submit():
+        # The flash() function is a useful way to show a message to the user.
+        flash(
+            "Login requested from user {}, remember_me={}".format(
+                login_form.username.data, login_form.remember_me.data
+            )
+        )
+        # The argument to url_for() is the endpoint name, which is the name of the view function.
+        return redirect(url_for("index"))
+    return render_template("login.html", title="Sign In", form=login_form)

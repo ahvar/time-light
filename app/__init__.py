@@ -18,11 +18,19 @@ NOTE:
     ------------------
     The routes module is imported at the bottom and not at the top of the script as it is always done.
     The bottom import is a workaround to circular imports, a common problem in Flask applications.
+    
+    --------------
+    Configurations:
+    --------------
+    The pattern used for importing configurations is similar to the Flask class. The module is lowercase
+    and the imported class uppercase.
 
 """
 
 from flask import Flask
+from config import Config
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
 from app import routes

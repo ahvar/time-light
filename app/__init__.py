@@ -22,7 +22,13 @@ The bottom import is a workaround to circular imports, a common problem in Flask
 Configurations:
 --------------
 The pattern used for importing configurations is similar to the Flask class. The module is lowercase
-and the imported class uppercase. There is a database object and a database migration engine instance.
+and the imported class uppercase. 
+
+-----------------------------
+Database and migration engine:
+-----------------------------
+There is a database object and a database migration engine instance. Alembic is the migration
+framework used by Flask-Migrate
 """
 
 from flask import Flask
